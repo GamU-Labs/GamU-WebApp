@@ -1,15 +1,15 @@
 {
-    "name": "boilerplate-fe",
+    "name": "gamu-webapp",
     "private": true,
-    "version": "0.0.0",
+    "version": "0.1.0",
+    "description": "GamU Web App - built with TanStack Start",
     "type": "module",
     "scripts": {
-        "dev": "vite",
-        "build": "tsc -b && vite build",
-        "lint": "eslint .",
+        "dev": "vite dev",
+        "build": "vite build && tsc --noEmit",
         "preview": "vite preview",
-        "prepare": "husky",
-        "test": "echo \"No tests yet\" && exit 0"
+        "start": "node .output/server/index.mjs",
+        "prepare": "husky"
     },
     "dependencies": {
         "@base-ui/react": "^1.4.1",
@@ -24,8 +24,9 @@
         "@tailwindcss/vite": "^4.1.12",
         "@tanstack/react-form": "^1.28.5",
         "@tanstack/react-query": "^5.85.9",
-        "@tanstack/react-router": "^1.131.32",
-        "@tanstack/react-router-devtools": "^1.131.32",
+        "@tanstack/react-router": "^1.170.15",
+        "@tanstack/react-router-devtools": "^1.167.0",
+        "@tanstack/react-start": "^1.168.24",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
         "cmdk": "^1.1.1",
@@ -49,7 +50,6 @@
     },
     "devDependencies": {
         "@eslint/js": "^9.33.0",
-        "@tanstack/router-plugin": "^1.131.32",
         "@types/node": "^24.3.0",
         "@types/react": "^19.1.10",
         "@types/react-dom": "^19.1.7",
@@ -59,6 +59,7 @@
         "eslint-plugin-react-refresh": "^0.4.20",
         "globals": "^16.3.0",
         "husky": "^9.1.7",
+        "nitro": "^3.0.260311-beta",
         "shadcn": "^4.7.0",
         "tw-animate-css": "^1.3.7",
         "typescript": "~5.8.3",
