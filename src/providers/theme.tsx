@@ -9,17 +9,24 @@ type ThemeContextType = {
 
 const THEME_STORAGE_KEY = "theme-preference"
 
+const getStoredTheme = (): Theme => {
+    if (typeof window !== 'undefined') {
+        return (localStorage.getItem(THEME_STORAGE_KEY) as Theme) || "system"
+    }
+    return "system"
+}
+
 // eslint-disable-next-line react-refresh/only-export-components
 export const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-    const [theme, setTheme] = useState<Theme>(() => {
-        return (localStorage.getItem(THEME_STORAGE_KEY) as Theme) || "system"
-    })
+    const [theme, setTheme] = useState<Theme>(getStoredTheme)
 
     const setThemeMode = (mode: Theme) => {
         setTheme(mode)
-        localStorage.setItem(THEME_STORAGE_KEY, mode)
+        if (typeof window !== 'undefined') {
+            localStorage.setItem(THEME_STORAGE_KEY, mode)
+        }
     }
 
     useEffect(() => {
