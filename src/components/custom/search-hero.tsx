@@ -93,7 +93,7 @@ export function SearchHero() {
                             <button
                                 type="submit"
                                 disabled={!input.trim()}
-                                className="flex items-center justify-center w-9 h-9 rounded-full bg-gradient-to-br from-primary to-primary-deep text-primary-foreground transition-all duration-200 cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed hover:shadow-[0_0_15px_rgba(124,58,237,0.6)] active:scale-90 shrink-0"
+                                className="flex items-center justify-center w-9 h-9 rounded-full bg-primary text-primary-foreground transition-all duration-200 cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed hover:shadow-[0_0_15px_rgba(124,58,237,0.6)] active:scale-90 shrink-0"
                                 aria-label="Submit"
                             >
                                 <ArrowUp className="h-4 w-4" />

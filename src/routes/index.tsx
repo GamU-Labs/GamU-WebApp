@@ -37,7 +37,7 @@ function HomePage() {
                             Genre
                         </span>
                         <h2 className="font-heading text-3xl sm:text-4xl text-foreground">
-                            Jelajahi Berbagai <span className="text-gradient">Genre</span>
+                            Jelajahi Berbagai <span className="text-primary">Genre</span>
                         </h2>
                         <p className="text-muted-foreground text-sm max-w-md mx-auto">
                             Dari aksi hingga petualangan, temukan genre favoritmu

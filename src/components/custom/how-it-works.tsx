@@ -39,7 +39,7 @@ export function HowItWorks() {
                         Cara Kerja
                     </span>
                     <h2 className="font-heading text-3xl sm:text-4xl text-foreground">
-                        Bagaimana <span className="text-gradient">GamU</span> Bekerja?
+                        Bagaimana <span className="text-primary">GamU</span> Bekerja?
                     </h2>
                     <p className="text-muted-foreground text-sm max-w-md mx-auto">
                         Tiga langkah sederhana untuk menemukan game impian kamu

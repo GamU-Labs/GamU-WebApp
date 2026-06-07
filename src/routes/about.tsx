@@ -35,7 +35,7 @@ function AboutPage() {
                         <Gamepad2 className="h-8 w-8 text-primary" />
                     </div>
                     <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl text-foreground">
-                        Tentang <span className="text-gradient">GamU</span>
+                        Tentang <span className="text-primary">GamU</span>
                     </h1>
                     <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
                         Sistem Rekomendasi Game Berbasis LLM — mencari game via bahasa alami, 
@@ -79,7 +79,7 @@ function AboutPage() {
                         </span>
                         <h2 className="font-heading text-3xl sm:text-4xl text-foreground">
                             <Users className="h-6 w-6 inline-block text-primary mb-1" />{" "}
-                            Tim <span className="text-gradient">PJK-GM083</span>
+                            Tim <span className="text-primary">PJK-GM083</span>
                         </h2>
                         <p className="text-muted-foreground text-sm max-w-md mx-auto">
                             Lima anggota dengan keahlian berbeda, satu tujuan
@@ -110,7 +110,7 @@ function AboutPage() {
                             Perjalanan
                         </span>
                         <h2 className="font-heading text-3xl sm:text-4xl text-foreground">
-                            Timeline <span className="text-gradient">Proyek</span>
+                            Timeline <span className="text-primary">Proyek</span>
                         </h2>
                     </div>
 
