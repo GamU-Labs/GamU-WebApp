@@ -14,7 +14,7 @@ function RouteComponent() {
 
     return (
         <div className="flex min-h-svh flex-col items-center justify-center gap-6 p-8">
-            <h1 className="text-3xl font-bold">TanStack Start ✨</h1>
+            <h1 className="text-3xl font-bold">TanStack Start</h1>
 
             <div className="rounded-xl border p-6 text-center max-w-md w-full space-y-2">
                 <p className="text-lg">{data.message}</p>
