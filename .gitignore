@@ -3,3 +3,12 @@ dist
 .output
 .tanstack
 *.tsbuildinfo
+
+.env
+.env.*
+!.env.example
+
+.DS_Store
+Thumbs.db
+*.local
+*.log
