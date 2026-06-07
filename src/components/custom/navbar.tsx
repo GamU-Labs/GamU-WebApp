@@ -17,7 +17,7 @@ export function ResizableNavbar() {
                 <NavBody>
                     <NavbarLogo />
                     <NavItems items={navItems} />
-                    <div className="flex items-center gap-2">
+                    <div className="relative z-20 flex items-center gap-2">
                         <ThemeToggle />
                     </div>
                 </NavBody>

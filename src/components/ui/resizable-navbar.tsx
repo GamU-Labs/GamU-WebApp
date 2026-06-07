@@ -9,7 +9,7 @@ import {
 } from "motion/react";
 import { Link } from "@tanstack/react-router";
 import { useTheme } from "@/hooks/use-theme";
-import { Gamepad2, Computer, Moon, Sun } from "lucide-react";
+import { Gamepad2, Moon, Sun } from "lucide-react";
 import React, { useRef, useState } from "react";
 
 interface NavbarProps {
@@ -220,21 +220,17 @@ export const NavbarLogo = () => {
 export const ThemeToggle = () => {
   const { theme, setThemeMode } = useTheme();
 
-  const cycleTheme = () => {
-    const modes = ["light", "dark", "system"] as const;
-    const idx = modes.indexOf(theme as typeof modes[number]);
-    setThemeMode(modes[(idx + 1) % modes.length]);
+  const toggleTheme = () => {
+    setThemeMode(theme === "dark" ? "light" : "dark");
   };
 
   return (
     <button
-      onClick={cycleTheme}
+      onClick={toggleTheme}
       className="flex items-center justify-center w-9 h-9 rounded-full text-muted-foreground hover:text-foreground hover:bg-primary/10 transition-all duration-200 cursor-pointer"
       aria-label="Toggle theme"
     >
-      {theme === "light" && <Sun className="h-[1.2rem] w-[1.2rem]" />}
-      {theme === "dark" && <Moon className="h-[1.2rem] w-[1.2rem]" />}
-      {theme === "system" && <Computer className="h-[1.2rem] w-[1.2rem]" />}
+      {theme === "dark" ? <Moon className="h-[1.2rem] w-[1.2rem]" /> : <Sun className="h-[1.2rem] w-[1.2rem]" />}
     </button>
   );
 };

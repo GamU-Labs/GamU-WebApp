@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react"
 
-type Theme = "light" | "dark" | "system"
+type Theme = "light" | "dark"
 
 type ThemeContextType = {
     theme: Theme
@@ -11,9 +11,9 @@ const THEME_STORAGE_KEY = "theme-preference"
 
 const getStoredTheme = (): Theme => {
     if (typeof window !== 'undefined') {
-        return (localStorage.getItem(THEME_STORAGE_KEY) as Theme) || "system"
+        return (localStorage.getItem(THEME_STORAGE_KEY) as Theme) || "dark"
     }
-    return "system"
+    return "dark"
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -24,32 +24,15 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
     const setThemeMode = (mode: Theme) => {
         setTheme(mode)
-        if (typeof window !== 'undefined') {
-            localStorage.setItem(THEME_STORAGE_KEY, mode)
-        }
+        localStorage.setItem(THEME_STORAGE_KEY, mode)
     }
 
     useEffect(() => {
-        const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)")
-
-        const applyTheme = () => {
-            if (theme === "dark") {
-                document.documentElement.classList.add("dark")
-            } else if (theme === "light") {
-                document.documentElement.classList.remove("dark")
-            } else {
-                document.documentElement.classList.toggle("dark", mediaQuery.matches)
-            }
+        if (theme === "dark") {
+            document.documentElement.classList.add("dark")
+        } else {
+            document.documentElement.classList.remove("dark")
         }
-
-        applyTheme()
-
-        const handleChange = () => {
-            if (theme === "system") applyTheme()
-        }
-
-        mediaQuery.addEventListener("change", handleChange)
-        return () => mediaQuery.removeEventListener("change", handleChange)
     }, [theme])
 
     return (
