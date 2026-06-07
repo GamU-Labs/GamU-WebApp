@@ -1,17 +1,19 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { FloatingNavbar } from "@/components/floating-navbar"
+import { ResizableNavbar } from "@/components/custom/navbar"
+// import { FloatingNavbar } from "@/components/floating-navbar"
 import { Gamepad2, Users, Brain, Sparkles, BookOpen, Target } from "lucide-react"
+import Carousel from "@/components/ui/carousel"
 
 export const Route = createFileRoute('/about')({
     component: AboutPage,
 })
 
 const teamMembers = [
-    { name: "Hildan Kusto Utomo", role: "Full-Stack Engineer", focus: "Backend API, frontend, integrasi LLM + recommendation engine", initials: "HK" },
     { name: "Nurrizky Arum Jatmiko", role: "AI Engineer", focus: "Prompt/pipeline ekstraksi intent, context handling", initials: "NA" },
     { name: "Firda Azzahra", role: "ML Engineer", focus: "Dataset, preprocessing, recommendation engine", initials: "FA" },
     { name: "Karima Ulya Hermawan", role: "ML Engineer", focus: "Dataset, preprocessing, recommendation engine", initials: "KU" },
     { name: "Daffa Nur Fakhri", role: "Project Manager & ML Engineer", focus: "Timeline, monitoring, + ML tasks", initials: "DN" },
+    { name: "Hildan Kusto Utomo", role: "Full-Stack Engineer", focus: "Backend API, frontend, integrasi LLM + recommendation engine", initials: "HK" },
 ]
 
 const milestones = [
@@ -24,7 +26,7 @@ const milestones = [
 function AboutPage() {
     return (
         <div className="min-h-screen bg-background">
-            <FloatingNavbar />
+            <ResizableNavbar />
 
             <section className="hero-gradient-strong bg-grid pt-32 pb-20 px-4 relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/30 to-background pointer-events-none" />
@@ -84,33 +86,16 @@ function AboutPage() {
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                        {teamMembers.map((member) => (
-                            <div
-                                key={member.name}
-                                className="group relative p-5 rounded-xl surface-gradient border border-primary/10 hover:border-primary/30 transition-all duration-300 hover:glow-violet cursor-pointer overflow-hidden"
-                            >
-                                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-primary/5 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                                <div className="relative z-10 flex items-start gap-4">
-                                    <div className="shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-primary to-primary-deep flex items-center justify-center">
-                                        <span className="font-heading text-sm text-primary-foreground">
-                                            {member.initials}
-                                        </span>
-                                    </div>
-                                    <div className="space-y-1.5 min-w-0">
-                                        <p className="font-heading text-base text-foreground truncate">
-                                            {member.name}
-                                        </p>
-                                        <p className="text-xs text-primary font-medium">
-                                            {member.role}
-                                        </p>
-                                        <p className="text-sm text-muted-foreground leading-relaxed">
-                                            {member.focus}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
+                    <div className="flex justify-center">
+                        <Carousel
+                            slides={teamMembers.map((m) => ({
+                                title: m.name,
+                                subtitle: m.role,
+                                description: m.focus,
+                                initials: m.initials,
+                                accent: "from-primary/40 to-primary-deep/20",
+                            }))}
+                        />
                     </div>
                 </div>
             </section>

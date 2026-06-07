@@ -1,19 +1,13 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { FloatingNavbar } from "@/components/floating-navbar"
+import { ResizableNavbar } from "@/components/custom/navbar"
+// import { FloatingNavbar } from "@/components/floating-navbar"
 import { SearchHero } from "@/components/custom/search-hero"
 import { HowItWorks } from "@/components/custom/how-it-works"
-import { Gamepad2, Sword, Puzzle, Skull, Car, Swords, Trophy, Sparkles } from "lucide-react"
+import { Gamepad2, Sword, Puzzle, Skull, Car, Swords, Trophy } from "lucide-react"
 
 export const Route = createFileRoute('/')({
     component: HomePage,
 })
-
-const stats = [
-    { label: "Game Database", value: "10.000+", icon: Gamepad2 },
-    { label: "Genre", value: "25+", icon: Sword },
-    { label: "Active Users", value: "50.000+", icon: Trophy },
-    { label: "Recommendations", value: "100.000+", icon: Sparkles },
-]
 
 const categories = [
     { name: "Action", icon: Swords, color: "from-rose-500/20 to-rose-700/10", border: "border-rose-500/30", glow: "group-hover:shadow-[0_0_20px_rgba(244,63,94,0.3)]" },
@@ -27,27 +21,9 @@ const categories = [
 function HomePage() {
     return (
         <div className="min-h-screen bg-background">
-            <FloatingNavbar />
+            <ResizableNavbar />
             
             <SearchHero />
-
-            <section className="py-16 px-4 relative">
-                <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent pointer-events-none" />
-                <div className="max-w-5xl mx-auto relative z-10">
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
-                        {stats.map((stat) => {
-                            const Icon = stat.icon
-                            return (
-                                <div key={stat.label} className="group text-center space-y-2 p-4 rounded-xl surface-gradient border border-primary/10 hover:border-primary/30 transition-all duration-300 hover:glow-violet">
-                                    <Icon className="h-6 w-6 mx-auto text-primary/60 group-hover:text-primary transition-colors duration-300" />
-                                    <p className="font-heading text-2xl md:text-3xl text-foreground">{stat.value}</p>
-                                    <p className="text-xs text-muted-foreground">{stat.label}</p>
-                                </div>
-                            )
-                        })}
-                    </div>
-                </div>
-            </section>
 
             <HowItWorks />
 
