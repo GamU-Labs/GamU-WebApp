@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TestRouteImport } from './routes/test'
+import { Route as RecommendRouteImport } from './routes/recommend'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as BackofficeRouteImport } from './routes/_backoffice'
@@ -20,6 +21,11 @@ import { Route as BackofficeManagementUsersIndexRouteImport } from './routes/_ba
 const TestRoute = TestRouteImport.update({
   id: '/test',
   path: '/test',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RecommendRoute = RecommendRouteImport.update({
+  id: '/recommend',
+  path: '/recommend',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BlogRoute = BlogRouteImport.update({
@@ -58,6 +64,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/blog': typeof BlogRoute
+  '/recommend': typeof RecommendRoute
   '/test': typeof TestRoute
   '/management/': typeof BackofficeManagementIndexRoute
   '/management/users/': typeof BackofficeManagementUsersIndexRoute
@@ -66,6 +73,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/blog': typeof BlogRoute
+  '/recommend': typeof RecommendRoute
   '/test': typeof TestRoute
   '/management': typeof BackofficeManagementIndexRoute
   '/management/users': typeof BackofficeManagementUsersIndexRoute
@@ -76,6 +84,7 @@ export interface FileRoutesById {
   '/_backoffice': typeof BackofficeRouteWithChildren
   '/about': typeof AboutRoute
   '/blog': typeof BlogRoute
+  '/recommend': typeof RecommendRoute
   '/test': typeof TestRoute
   '/_backoffice/management/': typeof BackofficeManagementIndexRoute
   '/_backoffice/management/users/': typeof BackofficeManagementUsersIndexRoute
@@ -86,17 +95,26 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/blog'
+    | '/recommend'
     | '/test'
     | '/management/'
     | '/management/users/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/blog' | '/test' | '/management' | '/management/users'
+  to:
+    | '/'
+    | '/about'
+    | '/blog'
+    | '/recommend'
+    | '/test'
+    | '/management'
+    | '/management/users'
   id:
     | '__root__'
     | '/'
     | '/_backoffice'
     | '/about'
     | '/blog'
+    | '/recommend'
     | '/test'
     | '/_backoffice/management/'
     | '/_backoffice/management/users/'
@@ -107,6 +125,7 @@ export interface RootRouteChildren {
   BackofficeRoute: typeof BackofficeRouteWithChildren
   AboutRoute: typeof AboutRoute
   BlogRoute: typeof BlogRoute
+  RecommendRoute: typeof RecommendRoute
   TestRoute: typeof TestRoute
 }
 
@@ -117,6 +136,13 @@ declare module '@tanstack/react-router' {
       path: '/test'
       fullPath: '/test'
       preLoaderRoute: typeof TestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/recommend': {
+      id: '/recommend'
+      path: '/recommend'
+      fullPath: '/recommend'
+      preLoaderRoute: typeof RecommendRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog': {
@@ -183,6 +209,7 @@ const rootRouteChildren: RootRouteChildren = {
   BackofficeRoute: BackofficeRouteWithChildren,
   AboutRoute: AboutRoute,
   BlogRoute: BlogRoute,
+  RecommendRoute: RecommendRoute,
   TestRoute: TestRoute,
 }
 export const routeTree = rootRouteImport
