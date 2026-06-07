@@ -1,7 +1,7 @@
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 import { useNavigate } from "@tanstack/react-router"
-import { Button } from "@/components/ui/button"
-import { Search, Sparkles } from "lucide-react"
+import { ArrowUp } from "lucide-react"
+import { SearchModeSelector, type SearchMode } from "@/components/custom/search-mode-selector"
 
 const SUGGESTION_CHIPS = [
     "game santai buat dimainkan bareng teman",
@@ -10,19 +10,51 @@ const SUGGESTION_CHIPS = [
     "strategi casual yang addictive",
 ]
 
+const PLACEHOLDER_BY_MODE: Record<SearchMode, string> = {
+    query: "Ceritakan game yang kamu cari...",
+    title: "Masukkan judul game...",
+}
+
 export function SearchHero() {
-    const [query, setQuery] = useState("")
+    const [mode, setMode] = useState<SearchMode>("query")
+    const [input, setInput] = useState("")
     const navigate = useNavigate()
+    const textareaRef = useRef<HTMLTextAreaElement>(null)
+
+    useEffect(() => {
+        const textarea = textareaRef.current
+        if (!textarea) return
+        textarea.style.height = "auto"
+        const maxHeight = 150
+        if (textarea.scrollHeight < maxHeight) {
+            textarea.style.height = textarea.scrollHeight + "px"
+            textarea.style.overflowY = "hidden"
+        } else {
+            textarea.style.height = maxHeight + "px"
+            textarea.style.overflowY = "auto"
+        }
+    }, [input])
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        if (!query.trim()) return
-        navigate({ to: "/recommend", search: { q: query.trim() } })
+        if (!input.trim()) return
+        if (mode === "query") {
+            navigate({ to: "/recommend", search: { q: input.trim() } })
+        } else {
+            navigate({ to: "/recommend", search: { judul: input.trim() } })
+        }
     }
 
     const handleChipClick = (chip: string) => {
-        setQuery(chip)
+        setInput(chip)
+        setMode("query")
         navigate({ to: "/recommend", search: { q: chip } })
+    }
+
+    const handleModeChange = (newMode: SearchMode) => {
+        setMode(newMode)
+        setInput("")
+        textareaRef.current?.focus()
     }
 
     return (
@@ -37,49 +69,67 @@ export function SearchHero() {
                     </p>
                 </div>
 
-                <p className="text-muted-foreground text-sm sm:text-base max-w-lg mx-auto">
-                    GamU menggunakan AI untuk memahami preferensi kamu dari bahasa natural, lalu merekomendasikan game yang cocok.
-                </p>
+                <div className="surface-gradient rounded-2xl border-border p-4 space-y-3">
+                    <form onSubmit={handleSubmit}>
+                        <div className="flex items-start gap-3">
+                            <textarea
+                                ref={textareaRef}
+                                value={input}
+                                onChange={(e) => setInput(e.target.value)}
+                                placeholder={PLACEHOLDER_BY_MODE[mode]}
+                                rows={1}
+                                className="flex-1 bg-transparent border-none outline-none text-foreground text-base placeholder:text-muted-foreground resize-none min-h-6 leading-relaxed focus:ring-0 focus:glow-violet-focus"
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter" && !e.shiftKey) {
+                                        e.preventDefault()
+                                        handleSubmit(e)
+                                    }
+                                }}
+                            />
+                            <button
+                                type="submit"
+                                disabled={!input.trim()}
+                                className="flex items-center justify-center w-8 h-8 rounded-full bg-primary text-primary-foreground transition-all duration-200 cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed hover:opacity-90 active:scale-95"
+                                aria-label="Submit"
+                            >
+                                <ArrowUp className="h-4 w-4" />
+                            </button>
+                        </div>
+                    </form>
 
-                <form onSubmit={handleSubmit} className="space-y-4">
-                    <div className="relative">
-                        <textarea
-                            value={query}
-                            onChange={(e) => setQuery(e.target.value)}
-                            placeholder="Ceritakan game yang kamu cari..."
-                            rows={3}
-                            className="w-full rounded-xl border-border bg-card text-foreground px-4 py-3 text-base placeholder:text-muted-foreground resize-none focus:outline-none focus:ring-2 focus:ring-primary focus:glow-violet-focus transition-all duration-200"
-                            onKeyDown={(e) => {
-                                if (e.key === "Enter" && !e.shiftKey) {
-                                    e.preventDefault()
-                                    handleSubmit(e)
-                                }
-                            }}
-                        />
+                    <div className="flex items-center justify-between pt-1">
+                        <div className="flex items-center gap-3">
+                            <button
+                                type="button"
+                                className="text-muted-foreground hover:text-foreground transition-colors duration-200 cursor-pointer flex items-center justify-center"
+                                aria-label="Attach"
+                            >
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <line x1="12" y1="5" x2="12" y2="19" />
+                                    <line x1="5" y1="12" x2="19" y2="12" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div className="flex items-center gap-3">
+                            <SearchModeSelector value={mode} onChange={handleModeChange} />
+                        </div>
                     </div>
-
-                    <Button
-                        type="submit"
-                        disabled={!query.trim()}
-                        className="bg-gradient-to-r from-primary to-cta text-cta-foreground font-heading px-8 py-3 rounded-xl glow-rose hover:opacity-90 transition-opacity duration-200 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
-                    >
-                        <Sparkles className="mr-2 h-5 w-5" />
-                        Cari Game
-                        <Search className="ml-2 h-4 w-4" />
-                    </Button>
-                </form>
-
-                <div className="flex flex-wrap justify-center gap-2">
-                    {SUGGESTION_CHIPS.map((chip) => (
-                        <button
-                            key={chip}
-                            onClick={() => handleChipClick(chip)}
-                            className="border-border rounded-lg px-3 py-1.5 text-sm text-muted-foreground hover:bg-primary/20 hover:border-primary hover:text-foreground transition-colors duration-200 cursor-pointer"
-                        >
-                            {chip}
-                        </button>
-                    ))}
                 </div>
+
+                {mode === "query" && (
+                    <div className="flex flex-wrap justify-center gap-2">
+                        {SUGGESTION_CHIPS.map((chip) => (
+                            <button
+                                key={chip}
+                                onClick={() => handleChipClick(chip)}
+                                className="surface-gradient border-border rounded-lg px-3 py-1.5 text-sm text-muted-foreground hover:bg-primary/20 hover:border-primary hover:text-foreground transition-colors duration-200 cursor-pointer"
+                            >
+                                {chip}
+                            </button>
+                        ))}
+                    </div>
+                )}
             </div>
         </section>
     )
