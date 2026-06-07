@@ -1,5 +1,4 @@
-import { Separator } from '@/components/ui/separator'
-import { createRootRoute, HeadContent, Outlet, Scripts, useRouterState } from '@tanstack/react-router'
+import { createRootRoute, HeadContent, Outlet, Scripts } from '@tanstack/react-router'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 import type { ReactNode } from 'react'
@@ -20,35 +19,20 @@ export const Route = createRootRoute({
     component: RootComponent,
 })
 
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            staleTime: 1000 * 60 * 5,
+        },
+    },
+})
+
 function RootComponent() {
-    const routerState = useRouterState()
-    const currentPath = routerState.location.pathname
-    const isProtectedRoute = currentPath.startsWith('/_backoffice') ||
-        currentPath.includes('/management')
-
-    const queryClient = new QueryClient()
-
-    if (isProtectedRoute) {
-        return (
-            <RootDocument>
-                <QueryClientProvider client={queryClient}>
-                    <ThemeProvider>
-                        <Outlet />
-                    </ThemeProvider>
-                </QueryClientProvider>
-                <TanStackRouterDevtools />
-            </RootDocument>
-        )
-    }
-
     return (
         <RootDocument>
             <QueryClientProvider client={queryClient}>
                 <ThemeProvider>
-                    <div className="mt-16">
-                        <Outlet />
-                    </div>
-                    <Separator />
+                    <Outlet />
                 </ThemeProvider>
             </QueryClientProvider>
             <TanStackRouterDevtools />
@@ -58,11 +42,11 @@ function RootComponent() {
 
 function RootDocument({ children }: { children: ReactNode }) {
     return (
-        <html>
+        <html lang="id" className="dark">
             <head>
                 <HeadContent />
             </head>
-            <body>
+            <body className="min-h-screen bg-background text-foreground font-body antialiased">
                 {children}
                 <Scripts />
             </body>
