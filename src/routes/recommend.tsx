@@ -15,7 +15,7 @@ import { useState, useRef, useEffect } from "react"
 import { useSearch } from "@tanstack/react-router"
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
 import { recommendByQuery, recommendByTitle } from "@/lib/api"
-import { FloatingNavbar } from "@/components/floating-navbar"
+import { ResizableNavbar } from "@/components/custom/navbar"
 import { GameCard } from "@/components/custom/game-card"
 import { LlmResponseBlock } from "@/components/custom/llm-response-block"
 import { SkeletonGameCard, SkeletonLlmResponse } from "@/components/skeleton-loader"
@@ -122,7 +122,7 @@ function RecommendPage() {
 
     return (
         <div className="min-h-screen bg-background">
-            <FloatingNavbar />
+            <ResizableNavbar />
 
             <main className="pt-24 pb-16 px-4 max-w-5xl mx-auto space-y-8">
                 <div className="space-y-2">

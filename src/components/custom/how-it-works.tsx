@@ -4,7 +4,7 @@ const steps = [
     {
         icon: MessageSquare,
         title: "Describe",
-        description: "Ceritakan game yang kamu mau pakai bahasa sehari-hari. Tidak perlu filter atau tag rumit.",
+        description: "Ceritakan game yang kamu mau, pakai bahasa sehari-hari. Tidak perlu filter atau tag rumit.",
         color: "from-primary/40 to-primary-deep/40",
         border: "border-primary/30 group-hover:border-primary",
         glow: "group-hover:shadow-[0_0_25px_rgba(124,58,237,0.4)]",
@@ -12,18 +12,18 @@ const steps = [
     {
         icon: Cpu,
         title: "AI Understands",
-        description: "LLM mengekstrak preferensi, genre, dan mood dari deskripsi kamu secara otomatis.",
-        color: "from-accent-cyan/30 to-primary/30",
-        border: "border-accent-cyan/30 group-hover:border-accent-cyan",
-        glow: "group-hover:shadow-[0_0_25px_rgba(34,211,238,0.3)]",
+        description: "LLM mengekstrak preferensi dari deskripsi kamu secara otomatis.",
+        color: "from-primary/40 to-primary-deep/40",
+        border: "border-primary/30 group-hover:border-primary",
+        glow: "group-hover:shadow-[0_0_25px_rgba(124,58,237,0.4)]",
     },
     {
         icon: Gamepad2,
         title: "Discover",
-        description: "Recommendation engine memberikan kandidat game + penjelasan kenapa cocok buat kamu.",
-        color: "from-accent-gold/30 to-primary/30",
-        border: "border-accent-gold/30 group-hover:border-accent-gold",
-        glow: "group-hover:shadow-[0_0_25px_rgba(251,191,36,0.3)]",
+        description: "Recommendation engine memberikan rekomendasi game beserta penjelasan kenapa cocok buat kamu.",
+        color: "from-primary/40 to-primary-deep/40",
+        border: "border-primary/30 group-hover:border-primary",
+        glow: "group-hover:shadow-[0_0_25px_rgba(124,58,237,0.4)]",
     },
 ]
 
@@ -65,9 +65,6 @@ export function HowItWorks() {
                                     </div>
 
                                     <div className="relative z-10">
-                                        <span className="font-heading text-4xl font-bold text-primary/10 absolute -top-8 left-1/2 -translate-x-1/2 select-none">
-                                            {String(index + 1).padStart(2, "0")}
-                                        </span>
                                         <h3 className="font-heading text-xl text-foreground mb-3">
                                             {step.title}
                                         </h3>
@@ -77,7 +74,7 @@ export function HowItWorks() {
                                     </div>
 
                                     {index < steps.length - 1 && (
-                                        <div className="hidden md:block absolute top-8 -right-6 z-20">
+                                        <div className="hidden md:block absolute top-16 -right-6 z-20">
                                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-primary/30 group-hover:text-primary/60 transition-colors duration-300">
                                                 <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                             </svg>

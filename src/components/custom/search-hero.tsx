@@ -101,20 +101,7 @@ export function SearchHero() {
                         </div>
                     </form>
 
-                    <div className="flex items-center justify-between pt-1">
-                        <div className="flex items-center gap-3">
-                            <button
-                                type="button"
-                                className="text-muted-foreground/60 hover:text-accent-cyan transition-colors duration-200 cursor-pointer flex items-center justify-center"
-                                aria-label="Attach"
-                            >
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                    <line x1="12" y1="5" x2="12" y2="19" />
-                                    <line x1="5" y1="12" x2="19" y2="12" />
-                                </svg>
-                            </button>
-                        </div>
-
+                    <div className="flex items-center justify-end pt-1">
                         <div className="flex items-center gap-3">
                             <SearchModeSelector value={mode} onChange={handleModeChange} />
                         </div>

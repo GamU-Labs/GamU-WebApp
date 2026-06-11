@@ -17,8 +17,8 @@ const teamMembers = [
 ]
 
 const milestones = [
-    { year: "2025", event: "Proyek dimulai — riset dan pengumpulan data game" },
-    { year: "2025", event: "Pengembangan model rekomendasi dan pipeline LLM" },
+    { year: "2026", event: "Proyek dimulai riset dan pengumpulan data game" },
+    { year: "2026", event: "Pengembangan model rekomendasi dan pipeline LLM" },
     { year: "2026", event: "Frontend development dan integrasi sistem" },
     { year: "2026", event: "Peluncuran dan presentasi capstone" },
 ]
