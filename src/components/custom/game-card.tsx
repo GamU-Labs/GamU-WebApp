@@ -1,6 +1,7 @@
 import type { GameRecommendation } from "@/lib/schemas"
 import { Badge } from "@/components/ui/badge"
 import { Gamepad2 } from "lucide-react"
+import { useState } from "react"
 
 interface GameCardProps {
     game: GameRecommendation
@@ -9,11 +10,21 @@ interface GameCardProps {
 export function GameCard({ game }: GameCardProps) {
     const tags = game.tags_clean.trim().split(/\s+/).filter(Boolean)
     const similarityPercent = Math.round(game.similarity_score * 100)
+    const [imgError, setImgError] = useState(false)
 
     return (
         <div className="surface-gradient rounded-xl border-border overflow-hidden hover:shadow-[0_8px_30px_rgba(124,58,237,0.3)] hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
-            <div className="relative h-32 bg-gradient-to-br from-primary/30 via-card to-secondary/20 flex items-center justify-center overflow-hidden">
-                <Gamepad2 className="h-12 w-12 text-primary/60 group-hover:text-primary/80 transition-colors duration-300" />
+            <div className="relative h-32 bg-linear-to-br from-primary/30 via-card to-secondary/20 flex items-center justify-center overflow-hidden">
+                {game.header_image && !imgError ? (
+                    <img
+                        src={game.header_image}
+                        alt={game.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        onError={() => setImgError(true)}
+                    />
+                ) : (
+                    <Gamepad2 className="h-12 w-12 text-primary/60 group-hover:text-primary/80 transition-colors duration-300" />
+                )}
                 <div className="absolute bottom-2 right-2 bg-primary/90 text-primary-foreground text-xs font-heading px-2 py-0.5 rounded-md">
                     {similarityPercent}% match
                 </div>

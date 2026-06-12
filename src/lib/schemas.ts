@@ -19,6 +19,7 @@ export const gameRecommendationSchema = z.object({
     desc_sentence: z.string(),
     tags_clean: z.string(),
     similarity_score: z.number(),
+    header_image: z.string(),
 })
 
 export const postRecommendResponseSchema = z.object({
