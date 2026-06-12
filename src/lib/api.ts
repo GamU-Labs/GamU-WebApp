@@ -4,14 +4,6 @@ import type { PostRecommendResponse, GetRecommendResponse } from "@/lib/schemas"
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8989"
 
-export async function BlogAPI(): Promise<{ message: string }> {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve({ message: "Hello from blog API" })
-        }, 1000)
-    })
-}
-
 export async function recommendByQuery(query: string, topN?: number): Promise<PostRecommendResponse> {
     const res = await fetch(`${API_BASE_URL}/api/v1/recommend`, {
         method: "POST",

@@ -11,7 +11,6 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TestRouteImport } from './routes/test'
 import { Route as RecommendRouteImport } from './routes/recommend'
-import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as BackofficeRouteImport } from './routes/_backoffice'
 import { Route as IndexRouteImport } from './routes/index'
@@ -26,11 +25,6 @@ const TestRoute = TestRouteImport.update({
 const RecommendRoute = RecommendRouteImport.update({
   id: '/recommend',
   path: '/recommend',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BlogRoute = BlogRouteImport.update({
-  id: '/blog',
-  path: '/blog',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -63,7 +57,6 @@ const BackofficeManagementUsersIndexRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/blog': typeof BlogRoute
   '/recommend': typeof RecommendRoute
   '/test': typeof TestRoute
   '/management/': typeof BackofficeManagementIndexRoute
@@ -72,7 +65,6 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/blog': typeof BlogRoute
   '/recommend': typeof RecommendRoute
   '/test': typeof TestRoute
   '/management': typeof BackofficeManagementIndexRoute
@@ -83,7 +75,6 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_backoffice': typeof BackofficeRouteWithChildren
   '/about': typeof AboutRoute
-  '/blog': typeof BlogRoute
   '/recommend': typeof RecommendRoute
   '/test': typeof TestRoute
   '/_backoffice/management/': typeof BackofficeManagementIndexRoute
@@ -94,7 +85,6 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
-    | '/blog'
     | '/recommend'
     | '/test'
     | '/management/'
@@ -103,7 +93,6 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
-    | '/blog'
     | '/recommend'
     | '/test'
     | '/management'
@@ -113,7 +102,6 @@ export interface FileRouteTypes {
     | '/'
     | '/_backoffice'
     | '/about'
-    | '/blog'
     | '/recommend'
     | '/test'
     | '/_backoffice/management/'
@@ -124,7 +112,6 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BackofficeRoute: typeof BackofficeRouteWithChildren
   AboutRoute: typeof AboutRoute
-  BlogRoute: typeof BlogRoute
   RecommendRoute: typeof RecommendRoute
   TestRoute: typeof TestRoute
 }
@@ -143,13 +130,6 @@ declare module '@tanstack/react-router' {
       path: '/recommend'
       fullPath: '/recommend'
       preLoaderRoute: typeof RecommendRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/blog': {
-      id: '/blog'
-      path: '/blog'
-      fullPath: '/blog'
-      preLoaderRoute: typeof BlogRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -208,7 +188,6 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BackofficeRoute: BackofficeRouteWithChildren,
   AboutRoute: AboutRoute,
-  BlogRoute: BlogRoute,
   RecommendRoute: RecommendRoute,
   TestRoute: TestRoute,
 }

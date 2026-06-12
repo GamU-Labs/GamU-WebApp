@@ -5,7 +5,6 @@ import { useState } from "react"
 const navItems = [
     { name: "Home", link: "/" },
     { name: "About", link: "/about" },
-    { name: "Blog", link: "/blog" },
 ]
 
 export function ResizableNavbar() {

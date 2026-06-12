@@ -192,10 +192,10 @@ function AboutPage() {
                             PJK-GM083 | Capstone Project 2026
                         </p>
                         <div className="flex items-center gap-4">
-                            {["Home", "Blog"].map((link) => (
+                            {["Home"].map((link) => (
                                 <a
                                     key={link}
-                                    href={link === "Home" ? "/" : "/blog"}
+                                    href="/"
                                     className="text-xs text-muted-foreground hover:text-primary transition-colors duration-200"
                                 >
                                     {link}
