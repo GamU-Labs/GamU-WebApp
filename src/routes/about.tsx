@@ -1,8 +1,13 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { ResizableNavbar } from "@/components/custom/navbar"
-// import { FloatingNavbar } from "@/components/floating-navbar"
 import { Gamepad2, Users, Brain, Sparkles, BookOpen, Target } from "lucide-react"
-import Carousel from "@/components/ui/carousel"
+import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious,
+} from "@/components/ui/carousel"
 
 export const Route = createFileRoute('/about')({
     component: AboutPage,
@@ -10,11 +15,37 @@ export const Route = createFileRoute('/about')({
 
 const teamMembers = [
     { name: "Nurrizky Arum Jatmiko", role: "AI Engineer", focus: "Prompt/pipeline ekstraksi intent, context handling", initials: "NA" },
-    { name: "Firda Azzahra", role: "ML Engineer", focus: "Dataset, preprocessing, recommendation engine", initials: "FA" },
-    { name: "Karima Ulya Hermawan", role: "ML Engineer", focus: "Dataset, preprocessing, recommendation engine", initials: "KU" },
-    { name: "Daffa Nur Fakhri", role: "Project Manager & ML Engineer", focus: "Timeline, monitoring, + ML tasks", initials: "DN" },
-    { name: "Hildan Kusto Utomo", role: "Full-Stack Engineer", focus: "Backend API, frontend, integrasi LLM + recommendation engine", initials: "HK" },
+    { name: "Firda Azzahra", role: "ML Engineer", focus: "Dataset collection, preprocessing, tag mapping, recommendation engine", initials: "FA" },
+    { name: "Karima Ulya Hermawan", role: "ML Engineer", focus: "Dataset collection, preprocessing, tag mapping, recommendation engine", initials: "KU" },
+    { name: "Daffa Nur Fakhri", role: "Project Manager", focus: "Timeline planning, team coordination, tracking ", initials: "DN" },
+    { name: "Hildan Kusto Utomo", role: "Full-Stack Engineer", focus: "Backend API, frontend, integrasi LLM dengan recommendation engine", initials: "HK" },
 ]
+
+function TeamMemberCard({ member }: { member: typeof teamMembers[0] }) {
+    return (
+        <div className="h-95 relative group">
+            <div className="absolute inset-0 surface-gradient rounded-xl" />
+            <div className="absolute inset-0 bg-linear-to-br from-primary/40 to-primary-deep/20 opacity-60 rounded-xl" />
+            
+            <div className="relative h-full flex flex-col items-center justify-center p-6 text-center">
+                <div className="w-20 h-20 rounded-full bg-linear-to-br from-primary to-primary-deep flex items-center justify-center mb-5 shadow-[0_0_20px_rgba(124,58,237,0.4)] transition-transform duration-300 group-hover:scale-110">
+                    <span className="font-heading text-xl text-primary-foreground">
+                        {member.initials}
+                    </span>
+                </div>
+                <h3 className="font-heading text-xl text-foreground mb-2">
+                    {member.name}
+                </h3>
+                <p className="text-xs text-primary font-medium mb-3">
+                    {member.role}
+                </p>
+                <p className="text-sm text-muted-foreground leading-relaxed max-w-70">
+                    {member.focus}
+                </p>
+            </div>
+        </div>
+    )
+}
 
 const milestones = [
     { year: "2026", event: "Proyek dimulai riset dan pengumpulan data game" },
@@ -29,7 +60,7 @@ function AboutPage() {
             <ResizableNavbar />
 
             <section className="hero-gradient-strong bg-grid pt-32 pb-20 px-4 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/30 to-background pointer-events-none" />
+                <div className="absolute inset-0 bg-linear-to-b from-transparent via-background/30 to-background pointer-events-none" />
                 <div className="max-w-4xl mx-auto text-center relative z-10 space-y-6">
                     <div className="inline-flex items-center gap-3 p-3 rounded-full bg-primary/10 border border-primary/20">
                         <Gamepad2 className="h-8 w-8 text-primary" />
@@ -86,23 +117,31 @@ function AboutPage() {
                         </p>
                     </div>
 
-                    <div className="flex justify-center">
+                    <div className="flex justify-center px-12">
                         <Carousel
-                            slides={teamMembers.map((m) => ({
-                                title: m.name,
-                                subtitle: m.role,
-                                description: m.focus,
-                                initials: m.initials,
-                                accent: "from-primary/40 to-primary-deep/20",
-                            }))}
-                        />
+                            opts={{
+                                align: "start",
+                                loop: true,
+                            }}
+                            className="w-full max-w-sm lg:max-w-4xl"
+                        >
+                            <CarouselContent className="-ml-2 md:-ml-4">
+                                {teamMembers.map((member, index) => (
+                                    <CarouselItem key={index} className="pl-2 md:pl-4 lg:basis-1/3">
+                                        <TeamMemberCard member={member} />
+                                    </CarouselItem>
+                                ))}
+                            </CarouselContent>
+                            <CarouselPrevious className="-left-12 bg-primary/10 border-primary/20 hover:bg-primary/20 hover:border-primary/40 text-primary hover:text-primary" />
+                            <CarouselNext className="-right-12 bg-primary/10 border-primary/20 hover:bg-primary/20 hover:border-primary/40 text-primary hover:text-primary" />
+                        </Carousel>
                     </div>
                 </div>
             </section>
 
             <section className="py-20 px-4 relative overflow-hidden">
                 <div className="absolute inset-0 bg-grid opacity-20 pointer-events-none" />
-                <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background pointer-events-none" />
+                <div className="absolute inset-0 bg-linear-to-b from-background via-transparent to-background pointer-events-none" />
 
                 <div className="max-w-3xl mx-auto relative z-10">
                     <div className="text-center mb-14 space-y-3">
@@ -115,7 +154,7 @@ function AboutPage() {
                     </div>
 
                     <div className="relative">
-                        <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary/40 via-primary/20 to-transparent" />
+                        <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-linear-to-b from-primary/40 via-primary/20 to-transparent" />
 
                         <div className="space-y-10">
                             {milestones.map((ms, i) => (
