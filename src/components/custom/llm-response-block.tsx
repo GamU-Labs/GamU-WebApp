@@ -1,16 +1,12 @@
 import { Cpu } from "lucide-react"
+import type { LlmExplanation } from "@/lib/schemas"
 
 interface LlmResponseBlockProps {
-    response: string | null
+    response: LlmExplanation | null
 }
 
 export function LlmResponseBlock({ response }: LlmResponseBlockProps) {
     if (!response) return null
-
-    const paragraphs = response
-        .split(/\n\n+/)
-        .map((p) => p.trim())
-        .filter(Boolean)
 
     return (
         <div className="surface-gradient rounded-xl border-border p-6 space-y-4">
@@ -21,13 +17,27 @@ export function LlmResponseBlock({ response }: LlmResponseBlockProps) {
                 </h3>
             </div>
 
+            <p className="text-muted-foreground text-sm leading-relaxed">
+                {response.intro}
+            </p>
+
             <div className="space-y-3">
-                {paragraphs.map((paragraph, i) => (
-                    <p key={i} className="text-muted-foreground text-sm leading-relaxed">
-                        {paragraph}
-                    </p>
+                {response.highlights.map((highlight, index) => (
+                    <div key={highlight.game_title} className="flex gap-3">
+                        <span className="text-primary font-semibold text-sm flex-shrink-0">
+                            {index + 1}.
+                        </span>
+                        <p className="text-muted-foreground text-sm leading-relaxed flex-1">
+                            <strong className="text-foreground font-semibold">{highlight.game_title}</strong>
+                            — {highlight.reason}
+                        </p>
+                    </div>
                 ))}
             </div>
+
+            <p className="text-foreground text-sm leading-relaxed font-medium">
+                {response.conclusion}
+            </p>
         </div>
     )
 }

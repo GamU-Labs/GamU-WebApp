@@ -1,5 +1,18 @@
 import { z } from "zod"
 
+export const llmHighlightSchema = z.object({
+    game_title: z.string(),
+    reason: z.string(),
+})
+
+export const llmExplanationSchema = z.object({
+    intro: z.string(),
+    highlights: z.array(llmHighlightSchema),
+    conclusion: z.string(),
+})
+
+export type LlmExplanation = z.infer<typeof llmExplanationSchema>
+
 export const gameRecommendationSchema = z.object({
     title: z.string(),
     rating: z.number().nullable(),
@@ -14,7 +27,7 @@ export const postRecommendResponseSchema = z.object({
         query: z.string(),
         status: z.string(),
         recommendations: z.array(gameRecommendationSchema),
-        llm_response: z.string().nullable(),
+        llm_response: llmExplanationSchema.nullable(),
     }),
 })
 
@@ -24,7 +37,7 @@ export const getRecommendResponseSchema = z.object({
         input_game: z.string(),
         status: z.string(),
         recommendations: z.array(gameRecommendationSchema),
-        llm_response: z.string().nullable(),
+        llm_response: llmExplanationSchema.nullable(),
     }),
 })
 
